@@ -29,11 +29,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
     TextView textDate;
     TextView textName;
 
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    String userID = firebaseAuth.getCurrentUser().getUid();
-
-    DocumentReference docRef = firestore.collection("users").document(userID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +73,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(MainActivity.this, EmotionActivity.class);
-
-        intent.putExtra("NAME", reflectionModels.get(position).getReflectionName());
-        intent.putExtra("DESCRIPTION", reflectionModels.get(position).getReflectionDescription());
+        Intent intent = new Intent(MainActivity.this);
 
         startActivity(intent);
 
@@ -92,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         new AlertDialog.Builder(this) .setTitle("Confirm Log out.").setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(MainActivity.this, "Successfully logged out", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
