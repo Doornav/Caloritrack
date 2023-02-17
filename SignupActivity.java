@@ -75,29 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                firebase_auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SignupActivity.this, "User Created", Toast.LENGTH_LONG).show();
-                            userID = firebase_auth.getCurrentUser().getUid();
-                            DocumentReference docRef = firestore.collection("users").document(userID);
-                            Map<String, Object> user = new HashMap<>();
-                            user.put(NAME,name);
-                            user.put(EMAIL, email);
-                            docRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d(TAG, "User Profile created for " + userID);
-                                }
-                            });
-                            Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(SignupActivity.this, "Error:" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+              
             }
         });
     }
