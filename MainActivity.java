@@ -1,4 +1,4 @@
-package com.example.betterhelp;
+package com.example.Caloritrack;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,19 +35,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
 
     DocumentReference docRef = firestore.collection("users").document(userID);
 
-    ArrayList<ReflectionModel> reflectionModels = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textName = findViewById(R.id.textName);
 
-        RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
-        setUpReflectionModels();
-        R_RecyclerViewAdapter adapter = new R_RecyclerViewAdapter(this, reflectionModels, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Date currentTime = Calendar.getInstance().getTime();
         String fullDate = DateFormat.getDateInstance(DateFormat.FULL).format(currentTime);
@@ -81,15 +74,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         }
         return String.valueOf(chars);
     }
-
-    private void setUpReflectionModels() {
-        String[] reflectionNames = getResources().getStringArray(R.array.reflection_emotions_txt);
-        String[] reflectionDescriptions = getResources().getStringArray(R.array.emotion_descriptions_txt);
-
-        for (int i = 0; i < reflectionNames.length; i++){
-        reflectionModels.add(new ReflectionModel(reflectionNames[i] , reflectionDescriptions[i]));
-        }
-    }
+}
 
     @Override
     public void onItemClick(int position) {
@@ -101,9 +86,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewInter
         startActivity(intent);
 
     }
-     public void toHistory (View view) {
-         startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
-     }
 
     public void lougout (View view) {
 
