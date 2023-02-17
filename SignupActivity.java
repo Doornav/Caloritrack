@@ -1,4 +1,4 @@
-package com.example.betterhelp;
+package com.example.Caloritrack;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
